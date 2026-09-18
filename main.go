@@ -1137,6 +1137,21 @@ func main() {
 		log.Fatalf("failed to get devices: %v", err)
 	}
 
+	log.Printf(
+		"GetDevices response: errorNumber=%d errorMessage=%v devices=%d",
+		devices.ErrorNumber,
+		devices.ErrorMessage,
+		len(devices.Body),
+	)
+
+	if devices.ErrorNumber != 0 {
+		log.Fatalf(
+			"Watts API returned error getting devices: %d: %v",
+			devices.ErrorNumber,
+			devices.ErrorMessage,
+		)
+	}
+
 	var tokensMu sync.Mutex
 
 	deviceStates := &deviceState{
