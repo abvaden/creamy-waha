@@ -1073,6 +1073,11 @@ func main() {
 	}
 	log.Printf("hello %v", userDetails.Body.FirstName)
 
+	locations, err := GetLocations(tokens.AccessToken)
+	if err != nil {
+		log.Fatal(err)
+	}
+
 	var defaultLocation Location
 	for _, location := range locations.Body {
 		log.Printf(
