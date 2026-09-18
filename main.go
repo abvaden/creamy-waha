@@ -1087,18 +1087,18 @@ func main() {
 			location.IsDefault,
 			location.DevicesCount,
 		)
-	
+
 		if location.IsDefault {
 			defaultLocation = location
 		} else if defaultLocation.LocationID == "" {
 			defaultLocation = location
 		}
 	}
-	
+
 	if defaultLocation.LocationID == "" {
 		log.Fatal("no locations found!")
 	}
-	
+
 	log.Printf(
 		"using location: %s (%s), reported devices: %d",
 		defaultLocation.Name,
