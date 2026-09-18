@@ -1073,22 +1073,33 @@ func main() {
 	}
 	log.Printf("hello %v", userDetails.Body.FirstName)
 
-	locations, err := GetLocations(tokens.AccessToken)
-	if err != nil {
-		log.Fatal(err)
-	}
-
 	var defaultLocation Location
 	for _, location := range locations.Body {
-		if location.IsDefault && location.DevicesCount > 0 {
+		log.Printf(
+			"location: name=%q id=%q default=%v devices=%d",
+			location.Name,
+			location.LocationID,
+			location.IsDefault,
+			location.DevicesCount,
+		)
+	
+		if location.IsDefault {
 			defaultLocation = location
-		} else if defaultLocation.LocationID == "" && location.DevicesCount > 0 {
+		} else if defaultLocation.LocationID == "" {
 			defaultLocation = location
 		}
 	}
+	
 	if defaultLocation.LocationID == "" {
-		log.Fatal("no default location found!")
+		log.Fatal("no locations found!")
 	}
+	
+	log.Printf(
+		"using location: %s (%s), reported devices: %d",
+		defaultLocation.Name,
+		defaultLocation.LocationID,
+		defaultLocation.DevicesCount,
+	)
 	log.Printf("using location: %s", defaultLocation.Name)
 
 	// Connect to MQTT
