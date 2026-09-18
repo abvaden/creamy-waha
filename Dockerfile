@@ -8,7 +8,8 @@ RUN CGO_ENABLED=0 \
   go test ./... && \
   go build -o /creamy-waha
 
-# for the CA certs
-FROM alpine 
+FROM alpine
+
 COPY --from=builder /creamy-waha /creamy-waha
+
 ENTRYPOINT ["/creamy-waha"]
