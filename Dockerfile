@@ -4,8 +4,6 @@ COPY go.mod go.sum main.go main_test.go /app/
 WORKDIR /app
 
 RUN CGO_ENABLED=0 \
-  GOOS=linux \
-  GOARCH=amd64 \
   go vet ./... && \
   go test ./... && \
   go build -o /creamy-waha
